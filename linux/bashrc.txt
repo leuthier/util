@@ -1,0 +1,38 @@
+# Useful commands
+alias ..='cd ..'
+alias ....='cd ../..'
+alias 1d='cd ..'
+alias 2d='cd ..;cd ..'
+alias 3d='cd ..;cd ..;cd ..'
+alias 4d='cd ..;cd ..;cd ..;cd ..'
+alias 5d='cd ..;cd ..;cd ..;cd ..;cd ..'
+alias editbash='gedit ~/.bashrc'
+alias extractb='tar -vzxf'
+alias untar='tar -zxvf $1'
+alias reloadbash='source ~/.bashrc'
+alias reboot-pc='sudo /sbin/reboot'
+
+# Update the android-sdk
+alias sdk-u='wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip && sudo unzip \platform-tools-latest-linux.zip && adb kill-server && sudo cp platform-tools/adb /home/$USER/android-sdk_linux/platform-tools/adb && sudo cp platform-tools/adb /usr/bin/adb && sudo cp platform-tools/fastboot /home/$USER/android-sdk_linux/platform-tools/fastboot && sudo cp platform-tools/fastboot /usr/bin/fastboot && mv platform-tools-latest-linux.zip platform-tools-latest-linux_downloaded.zip'
+
+# These functions needs an Android Serial device to work properly
+alias bootloader='_bootloader() { adb -s $1 reboot bootloader ;}; _bootloader'
+alias bugreport='_bugreport() { adb -s $1 bugreport ;}; _bugreport()'
+alias erasedevice-notsecure='adb -s $1 reboot bootloader && fastboot -s $1 -w'
+alias flashdevice='./flashall.sh'
+alias fp='_fp() { adb -s $1 shell getprop ro.build.fingerprint ;}; _fp'
+alias pullscreenshot='_pullscreenshot() { adb -s $1 pull /sdcard/screenshot.png ;}; _pullscreenshot'
+alias pullvideo='_pullvideo() { adb -s $1 pull -p /data/video.mp4 ;}; _pullvideo()'
+alias reboot-device='_reboot-device() { adb -s $1 reboot;}; _reboot-device'
+alias screenrecorder='_screenrecorder() { adb -s $1 shell screenrecord /data/video.mp4 ;}; _screenrecorder'
+alias screenshot='_screenshot() { adb -s $1 shell screencap -p /sdcard/screenshot.png ;}; _screenshot'
+alias screenshot2='_screenshot2() { adb -s $1 exec-out screencap -p /sdcard/screenshot.png ;}; _screenshot2'
+
+# Perform ssh tunneling device from an server to your machine to be used as a locally device (with delay, of course)
+alias tunneling='_tunneling() { kill-vysor;kill-adb;ssh -CN -L 5037:localhost:5037 $1 ;}; _tunneling'
+
+# Sometimes is necessary to kill adb
+alias kill-adb='adb kill-server && adb kill-server && adb kill-server'
+
+# Need Vysor (https://www.vysor.io/download/) installed
+alias kill-vysor='pkill -9 vysor && pkill -9 vysor && pkill -9 vysor'
